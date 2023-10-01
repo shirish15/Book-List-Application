@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Authentation App</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="select_a_country">Select a country</string>
+    <string name="name_invalid">Name invalid</string>
+    <string name="password_invalid">Password invalid</string>
+    <string name="text_continue">Continue</string>
+    <string name="sort_by">Sort By:</string>
+    <string name="your_bookshelf">Your Bookshelf</string>
+    <string name="hits">Hits: %1$s</string>
+    <string name="alias">Alias: %1$s</string>
+    <string name="updated_date">Updated on: %1$s</string>
+    <string name="summary">Summary : \n</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="book_description">Book Description</string>
+    <string name="no_items_found">No Items Found</string>
+    <string name="ascending">Ascending</string>
+    <string name="entering_wrong_details_for">Entering wrong details</string>
+    <string name="welcome_to_bookstore_app">Welcome to BookStore App</string>
+    <string name="welcome_back_again">Welcome back again</string>
+    <string name="logout">Logout</string>
+    <string name="logout_successful">Logout Successful</string>
+    <string name="welcome_to_bookstore">Welcome to BookStore</string>
+</resources>
