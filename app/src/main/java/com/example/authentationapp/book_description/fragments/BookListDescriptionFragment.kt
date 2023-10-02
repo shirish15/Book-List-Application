@@ -49,11 +49,14 @@ class BookListDescriptionFragment : Fragment() {
                 }
             })
             BookListDescriptionScreen(bookCardItem = bookListItem, updateRoom = {
-                bookListItem = it.copy(selected = !it.selected)
+                bookListItem = bookListItem?.copy(selected = !bookListItem!!.selected)
                 lifecycleScope.launch(Dispatchers.IO) {
-                    val list = args.currentUser.bookList?.toMutableList()
-                    list?.set(args.index, it)
-                    room.userDao().updateUser(args.currentUser.copy(bookList = list))
+                    val currUser = room.userDao().getAll().first { user ->
+                        user.name == args.currentUser.name && user.password == args.currentUser.password && user.country == args.currentUser.country
+                    }
+                    val list = currUser.bookList?.toMutableList()
+                    list?.set(args.index, bookListItem!!)
+                    room.userDao().updateUser(currUser.copy(bookList = list))
                 }
             }) { directions ->
                 when (directions) {

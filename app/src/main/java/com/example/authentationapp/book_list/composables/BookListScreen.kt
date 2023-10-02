@@ -29,6 +29,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -59,6 +60,9 @@ fun BookListScreen(
     setEvents: (BookListEvents) -> Unit,
     navigate: (BookListDirections) -> Unit
 ) {
+    LaunchedEffect(key1 = Unit, block = {
+        setEvents(BookListEvents.UpdateList)
+    })
     val context = LocalContext.current
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),

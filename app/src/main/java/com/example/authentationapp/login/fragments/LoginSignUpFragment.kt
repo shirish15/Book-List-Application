@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
-import com.example.authentationapp.R
 import com.example.authentationapp.book_list.models.BookListResponseModel
 import com.example.authentationapp.login.composables.LoginSignUpScreen
 import com.example.authentationapp.login.directions.LoginSignUpDirections
@@ -22,7 +21,6 @@ import com.example.authentationapp.utils.navigateForward
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class LoginSignUpFragment : Fragment() {
 

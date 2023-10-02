@@ -30,10 +30,6 @@ class BookListViewModel(application: Application, savedStateHandle: SavedStateHa
         "roomDb.db"
     ).build()
 
-    init {
-        setEvents(BookListEvents.UpdateList)
-    }
-
 
     //function to handle events
     fun setEvents(events: BookListEvents) {
@@ -78,16 +74,15 @@ class BookListViewModel(application: Application, savedStateHandle: SavedStateHa
                     it.copy(loading = true)
                 }
                 viewModelScope.launch(Dispatchers.IO) {
+                    val list = room.userDao().getAll().first {
+                        it.name == currentUser?.name && it.password == currentUser.password && it.country == currentUser.country
+                    }.bookList.orEmpty()
                     _uiState.update { state ->
                         state.copy(
-                            bookList = room.userDao().getAll().first {
-                                it.name == currentUser?.name && it.password == currentUser.password && it.country == currentUser.country
-                            }.bookList.orEmpty()
+                            bookList = list,
+                            loading = false
                         )
                     }
-                }
-                _uiState.update {
-                    it.copy(loading = false)
                 }
             }
         }

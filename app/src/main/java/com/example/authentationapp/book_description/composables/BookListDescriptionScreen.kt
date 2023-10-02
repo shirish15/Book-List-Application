@@ -36,7 +36,7 @@ import com.example.authentationapp.utils.convertLongToTime
 @Composable
 fun BookListDescriptionScreen(
     bookCardItem: BookListResponseModel?,
-    updateRoom: (BookListResponseModel) -> Unit,
+    updateRoom: () -> Unit,
     navigate: (BookListDescriptionDirections) -> Unit
 ) {
     val context = LocalContext.current
@@ -67,7 +67,7 @@ fun BookListDescriptionScreen(
         ) {
             bookCardItem?.let {
                 BookCard(bookItem = it, color = Color.White, onFavClick = {
-                    updateRoom(it)
+                    updateRoom()
                 })
             }
             bookCardItem?.alias?.let {

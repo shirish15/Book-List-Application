@@ -61,10 +61,4 @@ class BookListFragment : Fragment() {
             }
         }
     }
-
-
-    override fun onResume() {
-        super.onResume()
-        bookListViewModel.setEvents(BookListEvents.UpdateList)
-    }
 }
