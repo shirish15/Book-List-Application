@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -145,7 +146,7 @@ fun BookListScreen(
                 items(bookList?.size ?: 0) { index ->
                     bookList?.get(index)?.let {
                         BookCard(bookItem = it, onFavClick = {
-                            setEvents(BookListEvents.MarkBookFavourite(it))
+                            setEvents(BookListEvents.MarkBookFavourite(index))
                         }, onItemClick = {
                             navigate(BookListDirections.BookListDescription(it))
                         })

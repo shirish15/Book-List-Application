@@ -3,7 +3,6 @@ package com.example.authentationapp.book_list.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.example.authentationapp.book_list.enums.Filters
@@ -30,6 +29,10 @@ class BookListViewModel(application: Application, savedStateHandle: SavedStateHa
         "roomDb.db"
     ).build()
 
+    init {
+        setEvents(BookListEvents.UpdateList)
+    }
+
 
     //function to handle events
     fun setEvents(events: BookListEvents) {
@@ -43,14 +46,9 @@ class BookListViewModel(application: Application, savedStateHandle: SavedStateHa
             }
 
             is BookListEvents.MarkBookFavourite -> {
-                val list = mutableListOf<BookListResponseModel>()
-                _uiState.value.bookList.forEach {
-                    if (it == events.bookItem) {
-                        list.add(it.copy(selected = !it.selected))
-                    } else {
-                        list.add(it)
-                    }
-                }
+                val list = _uiState.value.bookList.toMutableList()
+                val item = list[events.index]
+                list[events.index] = item.copy(selected = !item.selected)
                 viewModelScope.launch(Dispatchers.IO) {
                     if (currentUser != null) {
                         room.userDao()
@@ -64,24 +62,28 @@ class BookListViewModel(application: Application, savedStateHandle: SavedStateHa
 
             is BookListEvents.SwitchButton -> {
                 _uiState.update {
-                    it.copy(checked = events.swicth)
+                    it.copy(checked = events.switch)
                 }
                 filterList()
             }
 
             is BookListEvents.UpdateList -> {
-                _uiState.update {
-                    it.copy(loading = true)
-                }
                 viewModelScope.launch(Dispatchers.IO) {
                     val list = room.userDao().getAll().first {
                         it.name == currentUser?.name && it.password == currentUser.password && it.country == currentUser.country
                     }.bookList.orEmpty()
+                    var l = _uiState.value.bookList.toMutableList()
+                    if (_uiState.value.bookList.isNotEmpty()) {
+                        list.forEachIndexed { idx, item ->
+                            if (l[idx].id == item.id && l[idx].selected != item.selected) {
+                                l[idx] = l[idx].copy(selected = item.selected)
+                            }
+                        }
+                    } else {
+                        l = list.toMutableList()
+                    }
                     _uiState.update { state ->
-                        state.copy(
-                            bookList = list,
-                            loading = false
-                        )
+                        state.copy(bookList = l)
                     }
                 }
             }
@@ -143,7 +145,7 @@ class BookListViewModel(application: Application, savedStateHandle: SavedStateHa
 
 sealed interface BookListEvents {
     data class SelectFilter(val selectedFilter: Filters) : BookListEvents
-    data class MarkBookFavourite(val bookItem: BookListResponseModel) : BookListEvents
-    data class SwitchButton(val swicth: Boolean) : BookListEvents
+    data class MarkBookFavourite(val index: Int) : BookListEvents
+    data class SwitchButton(val switch: Boolean) : BookListEvents
     object UpdateList : BookListEvents
 }
