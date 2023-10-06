@@ -3,13 +3,16 @@ package com.example.authentationapp.login.composables
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.DropdownMenuItem
@@ -35,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.authentationapp.R
@@ -86,6 +90,7 @@ fun LoginSignUpScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(
                 brush = Brush.verticalGradient(
                     listOf(darkBlue, emeraldGreen)
@@ -118,6 +123,7 @@ fun LoginSignUpScreen(
         GenericTextField(
             value = password,
             error = passwordError,
+            visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
             label = { LabelComposable(text = stringResource(id = R.string.password)) },
             onValueChange = {
@@ -168,6 +174,7 @@ private fun DropDownComposable(
             }
         )
         ExposedDropdownMenu(
+            modifier = Modifier.verticalScroll(rememberScrollState()),
             expanded = expanded,
             onDismissRequest = {
                 expanded = false

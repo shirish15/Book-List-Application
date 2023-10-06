@@ -3,7 +3,6 @@ package com.example.authentationapp.book_list.fragments
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
@@ -12,11 +11,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.authentationapp.book_list.composables.BookListScreen
 import com.example.authentationapp.book_list.directions.BookListDirections
-import com.example.authentationapp.book_list.viewmodels.BookListEvents
 import com.example.authentationapp.book_list.viewmodels.BookListViewModel
 import com.example.authentationapp.utils.navigateBack
 import com.example.authentationapp.utils.navigateForward
-import kotlinx.coroutines.flow.update
 
 class BookListFragment : Fragment() {
     private val bookListViewModel by viewModels<BookListViewModel>()

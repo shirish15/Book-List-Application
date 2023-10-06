@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.authentationapp.ui.theme.crimson
 
@@ -22,6 +23,7 @@ import com.example.authentationapp.ui.theme.crimson
 fun GenericTextField(
     modifier: Modifier = Modifier,
     error: Int? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     readOnly: Boolean = false,
     label: @Composable (() -> Unit)? = null,
     editable: Boolean = true,
@@ -52,6 +54,7 @@ fun GenericTextField(
             maxLines = 1,
             singleLine = true,
             readOnly = readOnly,
+            visualTransformation = visualTransformation,
             isError = error != null,
             colors = colors,
             shape = RoundedCornerShape(20.dp),

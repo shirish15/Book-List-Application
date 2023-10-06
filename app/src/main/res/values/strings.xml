@@ -24,4 +24,5 @@
     <string name="logout">Logout</string>
     <string name="logout_successful">Logout Successful</string>
     <string name="welcome_to_bookstore">Welcome to BookStore</string>
+    <string name="internet_not_available">Internet Not Available</string>
 </resources>

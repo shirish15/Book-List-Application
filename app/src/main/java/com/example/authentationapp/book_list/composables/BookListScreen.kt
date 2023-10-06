@@ -75,7 +75,7 @@ fun BookListScreen(
             )
     ) {
         val filterList = remember {
-            listOf(Filters.TITLE, Filters.HITS, Filters.ID)
+            listOf(Filters.TITLE, Filters.HITS, Filters.ID, Filters.FAV)
         }
         TitleBar(title = stringResource(R.string.your_bookshelf), showBack = false, onLogout = {
             Toast.makeText(

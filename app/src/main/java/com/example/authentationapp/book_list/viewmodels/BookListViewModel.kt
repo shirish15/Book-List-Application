@@ -113,7 +113,13 @@ class BookListViewModel(application: Application, savedStateHandle: SavedStateHa
                     }
                 }
 
-                null -> {
+                Filters.FAV -> {
+                    _uiState.value.bookList.sortedBy {
+                        it.selected
+                    }
+                }
+
+                else -> {
                     _uiState.value.bookList
                 }
             }
