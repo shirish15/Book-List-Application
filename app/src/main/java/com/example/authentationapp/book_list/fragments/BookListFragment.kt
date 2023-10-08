@@ -14,7 +14,9 @@ import com.example.authentationapp.book_list.directions.BookListDirections
 import com.example.authentationapp.book_list.viewmodels.BookListViewModel
 import com.example.authentationapp.utils.navigateBack
 import com.example.authentationapp.utils.navigateForward
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BookListFragment : Fragment() {
     private val bookListViewModel by viewModels<BookListViewModel>()
     private val args by navArgs<BookListFragmentArgs>()

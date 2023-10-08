@@ -13,13 +13,16 @@ import com.example.authentationapp.room.User
 import com.example.authentationapp.utils.ApiResultWrapper
 import com.example.authentationapp.utils.Validator.validateName
 import com.example.authentationapp.utils.Validator.validatePassword
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginSignUpViewModel constructor(private val repo: ApiRepo = ApiRepoImpl()) : ViewModel() {
+@HiltViewModel
+class LoginSignUpViewModel @Inject constructor(private val repo: ApiRepo) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginSignUpUiState())
     val uiState = _uiState.asStateFlow()

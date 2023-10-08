@@ -19,12 +19,18 @@ import com.example.authentationapp.book_list.models.BookListResponseModel
 import com.example.authentationapp.room.AppDatabase
 import com.example.authentationapp.utils.navigateBack
 import com.example.authentationapp.utils.navigateForward
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class BookListDescriptionFragment : Fragment() {
 
     private val args by navArgs<BookListDescriptionFragmentArgs>()
+
+    @Inject
+    lateinit var room: AppDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +38,6 @@ class BookListDescriptionFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = ComposeView(requireActivity()).apply {
         setContent {
-            val room: AppDatabase = AppDatabase.getInstance(this.context)
             var bookListItem: BookListResponseModel? by remember {
                 mutableStateOf(null)
             }

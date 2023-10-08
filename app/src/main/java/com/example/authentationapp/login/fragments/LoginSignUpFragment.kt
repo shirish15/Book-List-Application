@@ -19,12 +19,18 @@ import com.example.authentationapp.login.viewmodels.LoginSignUpViewModel
 import com.example.authentationapp.room.AppDatabase
 import com.example.authentationapp.utils.navigateForward
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginSignUpFragment : Fragment() {
 
     private val loginSignUpViewModel by viewModels<LoginSignUpViewModel>()
+
+    @Inject
+    lateinit var room: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +44,6 @@ class LoginSignUpFragment : Fragment() {
     ) = ComposeView(requireActivity()).apply {
         setContent {
             val uiState by loginSignUpViewModel.uiState.collectAsStateWithLifecycle()
-            val room: AppDatabase = AppDatabase.getInstance(this.context)
             LoginSignUpScreen(
                 password = uiState.password,
                 name = uiState.name,

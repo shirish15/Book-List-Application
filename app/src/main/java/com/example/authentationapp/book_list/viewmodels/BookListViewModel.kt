@@ -3,27 +3,32 @@ package com.example.authentationapp.book_list.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.example.authentationapp.book_list.enums.Filters
 import com.example.authentationapp.book_list.models.BookListResponseModel
 import com.example.authentationapp.room.AppDatabase
 import com.example.authentationapp.room.User
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BookListViewModel(application: Application, savedStateHandle: SavedStateHandle) :
-    AndroidViewModel(application) {
+@HiltViewModel
+class BookListViewModel @Inject constructor(
+    private val room: AppDatabase,
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
     private val _uiState = MutableStateFlow(BookListUiState())
     val uiState = _uiState.asStateFlow()
 
     private val currentUser = savedStateHandle.get<User>("currentUser")
-
-    private val room: AppDatabase = AppDatabase.getInstance(application.applicationContext)
 
     init {
         setEvents(BookListEvents.UpdateList)
