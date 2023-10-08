@@ -61,10 +61,13 @@ fun BookListScreen(
     setEvents: (BookListEvents) -> Unit,
     navigate: (BookListDirections) -> Unit
 ) {
+    val context = LocalContext.current
+    val filterList = remember {
+        listOf(Filters.TITLE, Filters.HITS, Filters.ID, Filters.FAV)
+    }
     LaunchedEffect(key1 = Unit, block = {
         setEvents(BookListEvents.UpdateList)
     })
-    val context = LocalContext.current
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
@@ -75,9 +78,6 @@ fun BookListScreen(
                 )
             )
     ) {
-        val filterList = remember {
-            listOf(Filters.TITLE, Filters.HITS, Filters.ID, Filters.FAV)
-        }
         TitleBar(title = stringResource(R.string.your_bookshelf), showBack = false, onLogout = {
             Toast.makeText(
                 context,
@@ -162,7 +162,7 @@ fun BookListScreen(
 }
 
 @Composable
-fun ChipComposable(text: String, isSelected: Boolean, onClick: () -> Unit) {
+private fun ChipComposable(text: String, isSelected: Boolean, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .wrapContentSize()
@@ -218,9 +218,9 @@ fun BookCard(
                 text = bookItem.title.orEmpty(),
                 style = MaterialTheme.typography.titleMedium.copy(color = color)
             )
-            if (bookItem.hits != null) {
+            bookItem.hits?.let {
                 Text(
-                    text = stringResource(id = R.string.hits, bookItem.hits),
+                    text = stringResource(id = R.string.hits, it),
                     style = MaterialTheme.typography.titleMedium.copy(color = color)
                 )
             }
