@@ -32,11 +32,7 @@ class BookListDescriptionFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = ComposeView(requireActivity()).apply {
         setContent {
-            val room: AppDatabase = Room.databaseBuilder(
-                context,
-                AppDatabase::class.java,
-                "roomDb.db"
-            ).build()
+            val room: AppDatabase = AppDatabase.getInstance(this.context)
             var bookListItem: BookListResponseModel? by remember {
                 mutableStateOf(null)
             }

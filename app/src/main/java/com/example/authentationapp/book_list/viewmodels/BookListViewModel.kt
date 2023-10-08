@@ -23,11 +23,7 @@ class BookListViewModel(application: Application, savedStateHandle: SavedStateHa
 
     private val currentUser = savedStateHandle.get<User>("currentUser")
 
-    private val room: AppDatabase = Room.databaseBuilder(
-        application.applicationContext,
-        AppDatabase::class.java,
-        "roomDb.db"
-    ).build()
+    private val room: AppDatabase = AppDatabase.getInstance(application.applicationContext)
 
     init {
         setEvents(BookListEvents.UpdateList)

@@ -38,11 +38,7 @@ class LoginSignUpFragment : Fragment() {
     ) = ComposeView(requireActivity()).apply {
         setContent {
             val uiState by loginSignUpViewModel.uiState.collectAsStateWithLifecycle()
-            val room: AppDatabase = Room.databaseBuilder(
-                context,
-                AppDatabase::class.java,
-                "roomDb.db"
-            ).build()
+            val room: AppDatabase = AppDatabase.getInstance(this.context)
             LoginSignUpScreen(
                 password = uiState.password,
                 name = uiState.name,
